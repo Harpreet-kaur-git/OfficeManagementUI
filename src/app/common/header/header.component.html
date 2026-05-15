@@ -1,0 +1,75 @@
+<header class="flex flex-col gap-4 border-b border-white/10 px-6 py-5 sm:px-8 theme-card theme-border">
+  <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex items-center gap-4">
+      <button
+        type="button"
+        (click)="openSidebar.emit()"
+        class="inline-flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-slate-950/80 text-slate-200 transition hover:bg-slate-900/90 lg:hidden"
+        aria-label="Open sidebar"
+      >
+        <span class="text-xl">☰</span>
+      </button>
+      <div class="space-y-2">
+        <p class="text-sm uppercase tracking-[0.3em] text-cyan-400">{{ dashboardLabel }}</p>
+        <h2 class="text-2xl font-semibold theme-text">Office operations overview</h2>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
+     <button
+  type="button"
+  (click)="toggleTheme()"
+  class="inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-semibold text-slate-700 shadow-sm transition-all duration-300 hover:bg-slate-100 dark:border-white/10 dark:bg-slate-950/80 dark:text-slate-100 dark:hover:bg-slate-900/90"
+>
+  
+  <!-- Text -->
+  <span>
+    {{ theme === 'dark' ? 'Light mode' : 'Dark mode' }}
+  </span>
+
+  <!-- Icon Wrapper -->
+  <span
+    class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-cyan-100 text-cyan-700 dark:bg-cyan-500/10 dark:text-cyan-300"
+  >
+
+    <!-- Sun Icon -->
+    <svg
+      *ngIf="theme === 'dark'"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="h-5 w-5"
+    >
+      <path
+        d="M12 2.25a.75.75 0 01.75.75v1.5a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zm0 16.5a.75.75 0 01.75.75V21a.75.75 0 01-1.5 0v-1.5a.75.75 0 01.75-.75zm9-6.75a.75.75 0 010 1.5h-1.5a.75.75 0 010-1.5H21zm-16.5 0a.75.75 0 010 1.5H3a.75.75 0 010-1.5h1.5zm12.364-5.864a.75.75 0 011.06 1.06l-1.06 1.061a.75.75 0 11-1.06-1.06l1.06-1.061zm-9.193 9.193a.75.75 0 011.06 1.06l-1.06 1.061a.75.75 0 11-1.06-1.06l1.06-1.061zm10.253 1.061a.75.75 0 10-1.06 1.06l1.06 1.061a.75.75 0 101.06-1.06l-1.06-1.061zm-9.193-9.193a.75.75 0 10-1.06 1.06l1.06 1.061a.75.75 0 101.06-1.06L8.73 6.136zM12 7.5A4.5 4.5 0 1012 16.5 4.5 4.5 0 0012 7.5z"
+      />
+    </svg>
+
+    <!-- Moon Icon -->
+    <svg
+      *ngIf="theme !== 'dark'"
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="h-5 w-5"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M9.528 1.718a.75.75 0 01.162.819 8.25 8.25 0 0010.592 10.592.75.75 0 01.98.98A9.75 9.75 0 1110.508 2.356a.75.75 0 01-.98-.638z"
+        clip-rule="evenodd"
+      />
+    </svg>
+
+  </span>
+
+</button>
+      <div class="flex items-center gap-3 rounded-full border border-white/10 bg-slate-950/80 px-4 py-2 text-sm shadow-sm shadow-slate-950/20 theme-card theme-border">
+        <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-cyan-500/10 text-cyan-300">A</span>
+        <div>
+          <p class="font-medium theme-text">Admin User</p>
+          <p class="text-xs theme-muted">Office Manager</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
