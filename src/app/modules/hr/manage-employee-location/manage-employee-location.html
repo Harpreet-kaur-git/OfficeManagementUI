@@ -1,0 +1,61 @@
+<div class="p-6 lg:p-8 bg-slate-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
+  <div class="max-w-2xl mx-auto">
+    <header class="mb-8">
+      <h1 class="text-2xl font-bold text-slate-800 dark:text-white">Office Perimeter Management</h1>
+      <p class="text-slate-500 dark:text-slate-400 text-sm">Define the valid GPS coordinates where employees can mark attendance.</p>
+    </header>
+
+    <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 p-8">
+      <form [formGroup]="locationForm" (ngSubmit)="saveLocation()" class="space-y-6">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Office Latitude</label>
+            <input formControlName="latitude" type="number" step="any" placeholder="0.000000"
+                   class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+          </div>
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Office Longitude</label>
+            <input formControlName="longitude" type="number" step="any" placeholder="0.000000"
+                   class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+          </div>
+        </div>
+
+        <div class="space-y-2">
+          <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Allowed Radius (Meters)</label>
+          <input formControlName="radius" type="number" 
+                 class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+          <p class="text-[10px] text-slate-400">Recommended: 50m - 150m to account for GPS drift.</p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-4 border-t border-slate-100 dark:border-slate-700">
+          <button type="button" (click)="getCurrentLocation()"
+                  class="flex-1 px-6 py-3 rounded-xl font-bold border border-blue-600 text-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all flex items-center justify-center gap-2">
+            <span>📍</span> Use My Current Location
+          </button>
+          
+          <button type="submit" [disabled]="locationForm.invalid || isSaving"
+                  class="flex-1 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-xl transition-all shadow-lg shadow-blue-200 dark:shadow-none disabled:opacity-50">
+            {{ isSaving ? 'Updating...' : 'Save Configuration' }}
+          </button>
+        </div>
+      </form>
+
+      <div *ngIf="saveSuccess" class="mt-4 p-4 bg-emerald-100 text-emerald-700 rounded-xl text-center text-sm font-bold animate-bounce">
+        Office location configuration updated successfully!
+      </div>
+    </div>
+
+    <!-- Informational Card -->
+    <div class="mt-8 p-6 bg-amber-50 dark:bg-amber-900/10 border border-amber-100 dark:border-amber-900/30 rounded-3xl flex gap-4">
+      <div class="text-2xl">🌍</div>
+      <div>
+        <h4 class="text-sm font-bold text-amber-800 dark:text-amber-400 mb-1">Geofencing Active</h4>
+        <p class="text-xs text-amber-700 dark:text-amber-500 leading-relaxed">
+          Once saved, the system will prevent employees from checking in if they are outside this defined perimeter. 
+          Make sure you are capturing coordinates directly at the office entrance for best accuracy.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,6 +14,7 @@ export class AuthService {
   private readonly tokenKey = 'office-access-token';
   private readonly usernameKey = 'office-user-name';
   private readonly roleKey = 'office-user-role';
+  private readonly designationKey = 'office-user-designation';
   private readonly usernameClaim =
     'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name';
   private readonly roleClaim = 'http://schemas.microsoft.com/ws/2008/06/identity/claims/role';
@@ -51,6 +52,13 @@ export class AuthService {
     return this.getClaimValue(claims, this.roleClaim, 'role');
   }
 
+  get designation(): string | null {
+  if (typeof window === 'undefined') {
+    return null;
+  }
+
+  return localStorage.getItem(this.designationKey);
+}
   get isAuthenticated(): boolean {
     return !!this.token;
   }
@@ -84,9 +92,21 @@ export class AuthService {
       localStorage.setItem(this.usernameKey, username);
     }
 
-    if (role) {
-      localStorage.setItem(this.roleKey, role);
-    }
+   if (role) {
+
+  // Store original designation
+  localStorage.setItem(this.designationKey, role);
+
+  // Normalize app role
+  const normalizedRole =
+    role.toLowerCase() === 'admin'
+      ? 'Admin'
+      : role.toLowerCase() === 'hr'
+      ? 'HR'
+      : 'Employee';
+
+  localStorage.setItem(this.roleKey, normalizedRole);
+}
   }
 
   clearToken(): void {

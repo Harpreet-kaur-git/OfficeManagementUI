@@ -1,0 +1,93 @@
+<div class="p-6 lg:p-8 bg-slate-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
+  <div class="max-w-4xl mx-auto">
+    <header class="mb-8">
+      <h1 class="text-2xl font-bold text-slate-800 dark:text-white">Relieve Employee</h1>
+      <p class="text-slate-500 dark:text-slate-400 text-sm">Process the offboarding and exit formalities for an employee.</p>
+    </header>
+
+    <form [formGroup]="relieveForm" (ngSubmit)="onSubmit()" class="space-y-6">
+      <div class="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+          
+          <!-- Employee Selection -->
+          <div class="md:col-span-2 border-b border-slate-100 dark:border-slate-700 pb-2 mb-2">
+            <h3 class="text-sm font-bold uppercase tracking-widest text-rose-600 dark:text-rose-400">Offboarding Details</h3>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Select Employee</label>
+            <select formControlName="employeeId" 
+                    class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all appearance-none">
+              <option value="" disabled>Select Employee to Relieve</option>
+              <option *ngFor="let emp of activeEmployees" [value]="emp.id">{{emp.name}} ({{emp.id}})</option>
+            </select>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Relieving Date</label>
+            <input formControlName="relievingDate" type="date"
+                   class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all">
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Reason for Leaving</label>
+            <select formControlName="reason" 
+                    class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all appearance-none">
+              <option value="" disabled>Select Reason</option>
+              <option *ngFor="let r of reasons" [value]="r">{{r}}</option>
+            </select>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Settlement Status</label>
+            <select formControlName="settlementStatus" 
+                    class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all appearance-none">
+              <option *ngFor="let s of settlementStatuses" [value]="s">{{s}}</option>
+            </select>
+          </div>
+
+          <!-- Formalities Checklist -->
+          <div class="md:col-span-2 border-b border-slate-100 dark:border-slate-700 pb-2 mt-4 mb-2">
+            <h3 class="text-sm font-bold uppercase tracking-widest text-rose-600 dark:text-rose-400">Formalities & Clearance</h3>
+          </div>
+
+          <div class="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <label class="flex items-center space-x-3 cursor-pointer p-4 rounded-xl border border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-all">
+              <input type="checkbox" formControlName="handoverDocs" class="w-5 h-5 rounded border-slate-300 text-rose-600 focus:ring-rose-500">
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Knowledge/Task Handover Complete</span>
+            </label>
+            <label class="flex items-center space-x-3 cursor-pointer p-4 rounded-xl border border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-all">
+              <input type="checkbox" formControlName="returnedAssets" class="w-5 h-5 rounded border-slate-300 text-rose-600 focus:ring-rose-500">
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300">Company Assets Returned</span>
+            </label>
+            <label class="flex items-center space-x-3 cursor-pointer p-4 rounded-xl border border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-all">
+              <input type="checkbox" formControlName="idCardReturned" class="w-5 h-5 rounded border-slate-300 text-rose-600 focus:ring-rose-500">
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300">ID Card & Keys Returned</span>
+            </label>
+            <label class="flex items-center space-x-3 cursor-pointer p-4 rounded-xl border border-slate-100 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/30 transition-all">
+              <input type="checkbox" formControlName="accessRevoked" class="w-5 h-5 rounded border-slate-300 text-rose-600 focus:ring-rose-500">
+              <span class="text-sm font-medium text-slate-700 dark:text-slate-300">IT & System Access Revoked</span>
+            </label>
+          </div>
+
+          <div class="md:col-span-2 space-y-2 mt-4">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Final Remarks / Exit Interview Summary</label>
+            <textarea formControlName="remarks" rows="3" placeholder="Any additional notes about the exit process..."
+                      class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-rose-500 outline-none transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600"></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end items-center gap-4">
+        <a routerLink="/dashboard/hr-dashboard" 
+           class="px-6 py-3 rounded-xl font-bold text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all">
+          Cancel
+        </a>
+        <button type="submit" [disabled]="relieveForm.invalid || isSubmitting" 
+                class="flex items-center gap-3 px-10 py-3 bg-rose-600 hover:bg-rose-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-rose-200 dark:shadow-none disabled:opacity-50 disabled:grayscale disabled:cursor-not-allowed">
+          {{ isSubmitting ? 'Processing Exit...' : 'Relieve Employee' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

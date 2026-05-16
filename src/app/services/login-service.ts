@@ -17,7 +17,6 @@ export class LoginService {
   ) {}
 
   validateUserToken(payload : loginModel): Observable<ResponseModel> {
-    debugger;
     return this._http.post<ResponseModel>(`${environment.appUrl + this.ctrlUrl}`, payload);
   }
 }

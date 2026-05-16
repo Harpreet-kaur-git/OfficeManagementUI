@@ -1,6 +1,6 @@
 <div
   class="flex min-h-screen flex-col overflow-hidden border-r theme-border bg-white dark:bg-slate-950 transition-all duration-300 ease-in-out"
-  [class.w-64]="!collapsed"
+  [class.w-72]="!collapsed"
   [class.w-20]="collapsed"
 >
   <div
@@ -36,9 +36,12 @@
   <div class="mt-4 flex-1 overflow-hidden">
     <nav class="flex h-full flex-col justify-start gap-2 px-1">
 
-      <a
+      <div class="mb-4">
+        <p *ngIf="!collapsed" class="px-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-2">Main</p>
+        <a
         routerLink="/dashboard"
-        class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900"
+        routerLinkActive="bg-blue-50/50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400"
+        class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900/50"
         [class.justify-center]="collapsed"
         [class.justify-start]="!collapsed"
         [class.p-2]="collapsed"
@@ -59,6 +62,7 @@
       </a>
 
       <a
+       *ngIf="role === 'HR'"
         href="#"
         class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900"
         [class.justify-center]="collapsed"
@@ -81,25 +85,145 @@
       </a>
 
       <a
-        href="#"
-        class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900"
-        [class.justify-center]="collapsed"
-        [class.justify-start]="!collapsed"
-        [class.p-2]="collapsed"
-        [class.px-3]="!collapsed"
-        [class.py-3]="!collapsed"
-      >
-        <span
-          class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-100/80 text-slate-800 dark:bg-slate-900 dark:text-slate-100"
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
-            <path fill-rule="evenodd" d="M5.25 4.5A2.25 2.25 0 003 6.75v10.5A2.25 2.25 0 005.25 19.5h13.5A2.25 2.25 0 0021 17.25V6.75A2.25 2.25 0 0018.75 4.5H5.25zm0 1.5h13.5a.75.75 0 01.75.75v2.25H4.5V6.75a.75.75 0 01.75-.75zm0 4.5h13.5v6.75a.75.75 0 01-.75.75H5.25a.75.75 0 01-.75-.75V10.5z" clip-rule="evenodd" />
-          </svg>
-        </span>
-        <span *ngIf="!collapsed" class="ml-3 font-medium text-sm theme-text whitespace-nowrap">
-          Room Bookings
-        </span>
-      </a>
+  *ngIf="role === 'Employee'"
+  routerLink="/employee/mark-attendance"
+  class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900"
+  [class.justify-center]="collapsed"
+  [class.justify-start]="!collapsed"
+  [class.p-2]="collapsed"
+  [class.px-3]="!collapsed"
+  [class.py-3]="!collapsed"
+>
+  <span
+    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-100/80 text-slate-800 dark:bg-slate-900 dark:text-slate-100"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="h-5 w-5"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M6.75 2.25A.75.75 0 017.5 3v1.5h9V3a.75.75 0 011.5 0v1.5h.75A2.25 2.25 0 0121 6.75v12A2.25 2.25 0 0118.75 21H5.25A2.25 2.25 0 013 18.75v-12A2.25 2.25 0 015.25 4.5H6V3a.75.75 0 01.75-.75zm12.75 8.25H4.5v8.25a.75.75 0 00.75.75h13.5a.75.75 0 00.75-.75V10.5z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </span>
+
+  <span *ngIf="!collapsed" class="ml-3 font-medium text-sm theme-text whitespace-nowrap">
+    Mark Attendance
+  </span>
+</a>
+ <a
+  *ngIf="role === 'Employee'"
+  routerLink="/employee/view-profile"
+  class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900"
+  [class.justify-center]="collapsed"
+  [class.justify-start]="!collapsed"
+  [class.p-2]="collapsed"
+  [class.px-3]="!collapsed"
+  [class.py-3]="!collapsed"
+>
+  <span
+    class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-100/80 text-slate-800 dark:bg-slate-900 dark:text-slate-100"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 24 24"
+      fill="currentColor"
+      class="h-5 w-5"
+    >
+      <path
+        fill-rule="evenodd"
+        d="M12 2.25a5.25 5.25 0 100 10.5 5.25 5.25 0 000-10.5zM3.75 19.5a8.25 8.25 0 0116.5 0 .75.75 0 01-.75.75H4.5a.75.75 0 01-.75-.75z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  </span>
+
+  <span *ngIf="!collapsed" class="ml-3 font-medium text-sm theme-text whitespace-nowrap">
+    View Profile
+  </span>
+</a>
+<a
+  *ngIf="role === 'HR'"
+  routerLink="/hr/add-employee"
+  routerLinkActive="bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 shadow-sm"
+  class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900 px-3 py-3"
+>
+  <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-100/80 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+      <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
+    </svg>
+  </span>
+  <span *ngIf="!collapsed" class="ml-3 font-medium text-sm theme-text whitespace-nowrap">
+    Add Employee
+  </span>
+</a>
+
+<a
+  *ngIf="role === 'HR'"
+  routerLink="/hr/relieve-employee"
+  routerLinkActive="bg-rose-50 text-rose-600 dark:bg-rose-900/20 dark:text-rose-400 shadow-sm"
+  class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900 px-3 py-3"
+>
+  <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-100/80 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+      <path d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z" />
+    </svg>
+  </span>
+  <span *ngIf="!collapsed" class="ml-3 font-medium text-sm theme-text whitespace-nowrap">
+    Relieve Employee
+  </span>
+</a>
+
+<a
+  *ngIf="role === 'HR'"
+  routerLink="/hr/manage-location"
+  routerLinkActive="bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 shadow-sm"
+  class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900 px-3 py-3"
+>
+  <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-100/80 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+      <path fill-rule="evenodd" d="M11.54 22.351l.07.04.028.016a.76.75 0 00.723 0l.028-.015.071-.041a16.975 16.975 0 001.144-.742 19.58 19.58 0 002.683-2.282c1.944-1.99 3.963-4.98 3.963-8.827a8.25 8.25 0 00-16.5 0c0 3.846 2.02 6.837 3.963 8.827a19.58 19.58 0 002.682 2.282 16.975 16.975 0 001.145.742zM12 13.5a3 3 0 100-6 3 3 0 000 6z" clip-rule="evenodd" />
+    </svg>
+  </span>
+  <span *ngIf="!collapsed" class="ml-3 font-medium text-sm theme-text whitespace-nowrap">
+    Manage Location
+  </span>
+</a>
+<a
+  *ngIf="role === 'Admin'"
+  routerLink="/admin/analytics"
+  routerLinkActive="bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 shadow-sm"
+  class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900 px-3 py-3"
+>
+  <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-100/80 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+      <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
+    </svg>
+  </span>
+  <span *ngIf="!collapsed" class="ml-3 font-medium text-sm theme-text whitespace-nowrap">
+    Analytics
+  </span>
+</a>
+<a
+  *ngIf="role === 'Admin'"
+  routerLink="/admin/announcements"
+  routerLinkActive="bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400 shadow-sm"
+  class="group flex items-center rounded-xl transition-all duration-200 hover:bg-slate-100 dark:hover:bg-slate-900 px-3 py-3"
+>
+  <span class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-slate-100/80 text-slate-800 dark:bg-slate-900 dark:text-slate-100">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="h-5 w-5">
+      <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z" />
+    </svg>
+  </span>
+  <span *ngIf="!collapsed" class="ml-3 font-medium text-sm theme-text whitespace-nowrap">
+    Announcements
+  </span>
+</a>
+</div>
     </nav>
   </div>
 

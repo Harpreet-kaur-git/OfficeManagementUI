@@ -33,7 +33,10 @@ export class RoleGuard implements CanActivate {
   private hasAccess(requiredRole: string): boolean {
     const role = (this.auth.role ?? '').trim().toLowerCase();
     const required = requiredRole.trim().toLowerCase();
+    
+    if (!role) return false;
 
+    // 'Employee' is a broad category for non-management roles (including developer)
     if (required === 'employee') {
       return role !== 'admin' && role !== 'hr';
     }

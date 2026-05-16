@@ -1,0 +1,86 @@
+<div class="p-6 lg:p-8 bg-slate-50 dark:bg-slate-900 min-h-screen transition-colors duration-300">
+  <div class="max-w-4xl mx-auto">
+    <header class="mb-8">
+      <h1 class="text-2xl font-bold text-slate-800 dark:text-white tracking-tight">Create Announcement</h1>
+      <p class="text-slate-500 dark:text-slate-400 text-sm">Broadcast important updates across the organization.</p>
+    </header>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <!-- Form Section -->
+      <div class="lg:col-span-2 space-y-6">
+        <form [formGroup]="announcementForm" (ngSubmit)="onSubmit()" class="bg-white dark:bg-slate-800 rounded-3xl shadow-sm border border-slate-100 dark:border-slate-700 p-8 space-y-6">
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Announcement Title</label>
+            <input formControlName="title" type="text" placeholder="e.g. Annual Office Retreat 2024"
+                   class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600">
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Target Audience</label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <label *ngFor="let audience of targetAudiences" 
+                     class="flex items-center justify-center p-3 rounded-xl border border-slate-200 dark:border-slate-700 cursor-pointer transition-all hover:bg-slate-50 dark:hover:bg-slate-700/50"
+                     [class.bg-blue-50/50]="announcementForm.get('target')?.value === audience.value"
+                     [class.border-blue-500]="announcementForm.get('target')?.value === audience.value">
+                <input type="radio" formControlName="target" [value]="audience.value" class="hidden">
+                <span class="text-xs font-bold" 
+                      [class.text-blue-600]="announcementForm.get('target')?.value === audience.value"
+                      [class.text-slate-500]="announcementForm.get('target')?.value !== audience.value">
+                  {{ audience.label }}
+                </span>
+              </label>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-2">
+              <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Priority Level</label>
+              <select formControlName="priority" 
+                      class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all appearance-none">
+                <option *ngFor="let p of priorities" [value]="p">{{p}}</option>
+              </select>
+            </div>
+            <div class="space-y-2">
+              <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Expiry Date (Optional)</label>
+              <input formControlName="expiryDate" type="date"
+                     class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all">
+            </div>
+          </div>
+
+          <div class="space-y-2">
+            <label class="text-xs font-bold uppercase tracking-widest text-slate-400 dark:text-slate-500">Message Content</label>
+            <textarea formControlName="message" rows="6" placeholder="Compose your announcement details here..."
+                      class="w-full px-4 py-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-transparent text-slate-700 dark:text-slate-200 focus:ring-2 focus:ring-blue-500 outline-none transition-all placeholder:text-slate-300 dark:placeholder:text-slate-600 resize-none"></textarea>
+          </div>
+
+          <div class="flex flex-col gap-4 pt-4">
+            <button type="submit" [disabled]="announcementForm.invalid || isSubmitting"
+                    class="w-full px-6 py-4 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-2xl transition-all shadow-lg shadow-blue-200 dark:shadow-none flex items-center justify-center gap-3 disabled:opacity-50">
+              <svg *ngIf="isSubmitting" class="animate-spin h-5 w-5 text-white" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4" fill="none"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              {{ isSubmitting ? 'Sending Broadcast...' : 'Publish Announcement' }}
+            </button>
+            <div *ngIf="successMessage" class="p-4 bg-emerald-100 text-emerald-700 rounded-xl text-center text-sm font-bold animate-in fade-in slide-in-from-top-4">
+              Announcement published successfully!
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Help Card -->
+      <div class="space-y-6">
+        <div class="bg-indigo-600 rounded-3xl p-8 text-white shadow-xl shadow-indigo-500/20">
+          <div class="flex items-center gap-4 mb-6">
+            <span class="text-3xl">📢</span>
+            <h3 class="text-lg font-bold leading-tight">Broadcast Center</h3>
+          </div>
+          <p class="text-indigo-100 text-sm leading-relaxed mb-6">
+            Select the appropriate target audience and priority level. Critical updates should always use 'High' priority.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
