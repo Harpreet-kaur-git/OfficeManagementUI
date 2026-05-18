@@ -15,7 +15,8 @@ import { ReportsComponent } from './modules/admin/reports/reports';
 import { AnnouncementsComponent } from './modules/admin/announcements/announcements';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'login', pathMatch: 'full' },
+ // { path: '', redirectTo: 'login', pathMatch: 'full' },
+  { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   {
     path: 'dashboard',
