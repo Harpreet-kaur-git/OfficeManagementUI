@@ -11,7 +11,7 @@ import { loginModel } from '../model/login-model';
 })
 export class LoginService {
 
-  ctrlUrl = 'api/Auth/login';
+  ctrlUrl = 'api/Auth/login'; 
     constructor(
     private _http: HttpClient,
   ) {}
